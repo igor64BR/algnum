@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import zeros
 
 def gauss_jacobi(A, b, x0, max_iter=1000, tol=1e-12):
     """
@@ -48,3 +49,14 @@ def gera_matriz_DIAGDOM(n): # Gera uma matriz de dimensão nxn com elementos ale
                 s = s + A[i, j]  
             A[i, i] =  A[i, i] + s
     return (A)
+
+
+
+def gera_b_para_Sistema_linear_com_solucao_unitaria(A, n):
+    b = zeros(n, float)
+    for i in range(0, n):
+        s = 0
+        for j in range(0, n):
+            s = s + A[i, j]
+        b[i] = s
+    return b
