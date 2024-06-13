@@ -1,29 +1,50 @@
 import numpy as np
 
-def gauss_jacobi(A, b, x0, tol=1e-12, max_iter=1000):
+def gauss_jacobi(A, b, x0, max_iter=1000, tol=1e-12):
     """
-    Implementa o método iterativo de Gauss-Jacobi para resolver um sistema linear Ax = b.
-
-    Parâmetros:
-    - A: numpy.ndarray, matriz de coeficientes do sistema linear.
-    - b: numpy.ndarray, vetor de termos independentes do sistema linear.
-    - x0: numpy.ndarray, vetor de valores iniciais para a solução.
-    - tol: float, tolerância para critério de parada (default: 1e-12).
-    - max_iter: int, número máximo de iterações (default: 1000).
-
-    Retorna:
-    - x: numpy.ndarray, vetor solução do sistema linear.
-    - num_iter: int, número de iterações realizadas.
+    Solves the linear system Ax = b using the Gauss-Jacobi iterative method.
+    
+    Parameters:
+    A (numpy.ndarray): Coefficient matrix.
+    b (numpy.ndarray): Constant vector.
+    x0 (numpy.ndarray): Initial guess.
+    max_iter (int): Maximum number of iterations.
+    tol (float): Tolerance for convergence.
+    
+    Returns:
+    x (numpy.ndarray): Solution vector.
+    iterations (int): Number of iterations performed.
     """
-    n = A.shape[0]
-    x = x0.copy()
-    for k in range(max_iter):
-        x_new = np.zeros(n)
+    # Initialize variables
+    x = np.copy(x0)
+    n = len(b)
+    iterations = 0
+    
+    # Iterate until max_iter
+    for _ in range(max_iter):
+        x_new = np.copy(x)
+        
+        # Update each element of x
         for i in range(n):
-            s1 = np.dot(A[i, :i], x[:i])
-            s2 = np.dot(A[i, i + 1:], x[i + 1:])
-            x_new[i] = (b[i] - s1 - s2) / A[i, i]
-        if np.max(np.abs(x_new - x)) < tol:
-            return x_new, k+1
+            s = sum(A[i][j] * x[j] for j in range(n) if i != j)
+            x_new[i] = (b[i] - s) / A[i][i]
+        
+        # Check for convergence
+        if np.linalg.norm(x_new - x, np.inf) < tol:
+            return x_new, iterations
+        
+        # Update x for the next iteration
         x = x_new
-    return x, max_iter
+        iterations += 1
+    
+    # Return the last approximation if max_iter is reached without convergence
+    return x, iterations
+
+def gera_matriz_DIAGDOM(n): # Gera uma matriz de dimensão nxn com elementos aleatórios (entre 0 e 1) diagonalemnte dominante
+    A = np.random.rand(n, n)
+    for i in range(0, n):
+            s = 0
+            for j in range(0, n):
+                s = s + A[i, j]  
+            A[i, i] =  A[i, i] + s
+    return (A)
