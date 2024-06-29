@@ -1,8 +1,9 @@
 import numpy as np
 from numpy import zeros
-from gauss_jacobi import gauss_jacobi, gera_b_para_Sistema_linear_com_solucao_unitaria, gera_matriz_DIAGDOM
+from algnum.igor_baiocoo import gauss_jacobi, gera_b_para_Sistema_linear_com_solucao_unitaria, gera_matriz_DIAGDOM
 
 def experiment2():
+    print("Experimento 1")
     np.random.seed(0)
     n = 3
     A = gera_matriz_DIAGDOM(n)
@@ -18,5 +19,6 @@ def experiment2():
         print(f'\nDimensão: {n}')
         print(f'Chute {i+1}: {x0}')
         print(f'Solução: {x}, Número de iterações: {num_iter}')
+    print()
 
 experiment2()

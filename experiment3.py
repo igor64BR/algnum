@@ -1,8 +1,10 @@
 import numpy as np
-from gauss_jacobi import gauss_jacobi
+from algnum.igor_baiocoo import gauss_jacobi
 
 
 def experiment3():
+    print("Experimento 3")
+
     np.random.seed(0)
     n = 20
     A = np.random.rand(n, n) + np.diag([15]*n)  # Matriz com diagonal dominante
@@ -11,5 +13,6 @@ def experiment3():
     x, num_iter = gauss_jacobi(A, b, x0)
     print(f'\nDimensão: {n}')
     print(f'Solução: {x}, Número de iterações: {num_iter}')
+    print()
 
 experiment3()
