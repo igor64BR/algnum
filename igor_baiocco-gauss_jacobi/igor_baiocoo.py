@@ -81,10 +81,9 @@ def experiment1():
         print(SPACER)
     print()
 
-def experiment2():
-    print("Experimento 2")
+def experiment2(n=3, experiment=2):
+    print("Experimento", experiment)
     np.random.seed(random.randint(0, 1000)) # linha adicionada para gerar novos resultados
-    n = 3
     A = gera_matriz_DIAGDOM(n)
     b = gera_b_para_Sistema_linear_com_solucao_unitaria(A, n)
     x0_list = [np.random.uniform(0, 10, n) for _ in range(4)]  # Gera 4 estimativas iniciais distintas
@@ -104,26 +103,7 @@ def experiment2():
     print()
 
 def experiment3():
-    print("Experimento 3")
-    np.random.seed(random.randint(0, 1000)) # linha adicionada para gerar novos resultados
-    n = 20
-    A = gera_matriz_DIAGDOM(n)
-    b = gera_b_para_Sistema_linear_com_solucao_unitaria(A, n)
-    x0_list = [np.random.uniform(0, 10, n) for _ in range(4)]  # Gera 4 estimativas iniciais distintas
-    print("A: [")
-
-    [print(e) for e in A]
-
-    print("]")
-    SPACER = setSpacer()
-    print(SPACER)
-    for i, x0 in enumerate(x0_list):
-        x, num_iter = gauss_jacobi(A, b, x0)
-        print(f'\nDimensão: {n}')
-        print(f'Chute {i+1}: {x0}')
-        print(f'Solução: {x}, Número de iterações: {num_iter}')
-        print(SPACER)
-    print()
+    experiment2(n=20, experiment=3)
 
 def setSpacer():
     """
@@ -137,10 +117,10 @@ def setSpacer():
 
 SPACER = setSpacer()
 
-# print(SPACER)
-# experiment1()
-# print(SPACER)
-# experiment2()
-# print(SPACER)
+print(SPACER)
+experiment1()
+print(SPACER)
+experiment2()
+print(SPACER)
 experiment3()
-# print(SPACER)
+print(SPACER)

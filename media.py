@@ -1,5 +1,4 @@
 def media(valores):
-    print("Calculo de média: ")
     num_val = len(valores)
     media = sum(valores) / num_val
     return media
